@@ -10,8 +10,16 @@ function App() {
 
   const [board, setBoard] = useState(boardDefault);
   const [currentAttempt, setCurrentAttempt] = useState({attempt: 0, letterPos: 0});
-  
+  const [wordSet, setWordSet] = useState(new Set())
+  const [disabledLetters, setDisabledLetters] = useState([]); 
+
   const correctWord = "RIGHT";
+
+  useEffect(() => {
+    generateWordSet().then((words) => {
+      setWordSet(words.wordSet);
+    });
+  }, []);
 
   const onClickLetter = (keyVal) => {
     if (currentAttempt.letterPos > 4) return;
@@ -22,8 +30,24 @@ function App() {
   }
   const onEnter = () => {
     if (currentAttempt.letterPos !== 5) return;
-        setCurrentAttempt({attempt: currentAttempt.attempt + 1, letterPos : 0});
-  }
+
+    let currentWord = "";
+    for (let i = 0; i < 5; i++) {
+      currentWord += board[currentAttempt.attempt][i];
+    }
+
+    if (wordSet.has(currentWord.toLowerCase())) {
+      setCurrentAttempt({ attempt: currentAttempt.attempt + 1, letterPos: 0 });
+    } else {
+      alert("Word not found");
+    }
+
+    if (currentWord === correctWord) {
+      alert("Game Won")
+    }
+  };
+
+
   const onDelete = () => {
     if (currentAttempt.letterPos === 0) return;
         const newBoard = [...board];
@@ -37,7 +61,8 @@ function App() {
       <nav>
         <h1>Wordle</h1>
       </nav>
-    <AppContext.Provider value={{ board, setBoard, currentAttempt, setCurrentAttempt, onClickLetter, onDelete, onEnter, correctWord }}>
+      <AppContext.Provider value={{ board, setBoard, currentAttempt, setCurrentAttempt, onClickLetter, onDelete, onEnter, correctWord, setDisabledLetters , disabledLetters}}>
+      
       <div className='game'>
         <Board />
         <Keyboard />
