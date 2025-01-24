@@ -10,12 +10,14 @@ export const boardDefault = [
 
  export const generateWordSet = async () => {
     let wordSet;
+    let gameWord;
     await fetch(wordBank)
       .then((response) => response.text())
       .then((result) => {
-        const WordArray = result.split("\n")
-        wordSet = new Set(WordArray)
+        const wordArray = result.split("\n")
+        gameWord = wordArray[Math.floor(Math.random()* wordArray.length)]
+        wordSet = new Set(wordArray);
     });
 
-    return {wordSet};
+    return {wordSet, gameWord};
   };
