@@ -21,12 +21,14 @@ nav {
   place-items: center;
 }
 
-nav h1 {
+nav h1{
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
   color: white;
   font-size: 45px;
 }
+
+
 .game {
   width: 100vw;
   height: 100%;
@@ -124,4 +126,11 @@ nav h1 {
 }
 #disabled {
   background-color: #3a393c;
+}
+
+.reset {
+  background-color: #00CF8E;
+  border-radius: 10px;
+  box-shadow:  0 5px 5px 0 rgba(0,0,0,0.24);
+  cursor: pointer;
 }

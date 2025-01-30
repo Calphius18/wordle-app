@@ -74,7 +74,7 @@ function App() {
     <div className="App">
       <nav>
         <h1>Wordle</h1>
-        <button onClick={resetGame}> Reset Game </button>
+        <button className='reset' onClick={resetGame}> Reset Game </button>
       </nav>
       <AppContext.Provider value={{ board, setBoard, currentAttempt, setCurrentAttempt, onClickLetter, onDelete, onEnter, correctWord, setDisabledLetters , disabledLetters, setGameOver, gameOver}}>
       
